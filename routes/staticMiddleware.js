@@ -1,0 +1,12 @@
+module.exports=(req,res,next)=>{
+    if(req.path.startsWith("/api")){
+        //说明你的请求是api接口
+    }else{
+        //说明你想请求静态资源
+        if(true){
+            res.send('静态资源');
+        }else{
+            next();
+        }
+    }
+}
