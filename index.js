@@ -138,5 +138,31 @@
 //         console.log(`server listen on ${port}`);
 //     })
 
+
+
+// //配置JWT
+// const jwt=require("jsonwebtoken");
+// const secrect='yuanjin';//密钥
+// const token=jwt.sign(
+//     {
+//         id:1,
+//         name:'成哥',
+//     },
+//     secrect,
+//     {
+//         expiresIn:3600*1000,//多少毫秒后过期
+//     }
+// )
+// console.log(token)
+
+// //解密
+// try{
+//     const decoded=jwt.verify(token,secrect);
+//     console.log(decoded)
+// }catch{
+//     console.log('JWT无效')
+// }
+
+
 require("./init")
 

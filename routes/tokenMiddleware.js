@@ -1,12 +1,13 @@
 const {getErr}=require("./getSendResult");
 const {pathToRegexp}=require("path-to-regexp")
-const cryptor=require("./../util/crypt")
+const jwt=require('./jwt')
 
 
 //配置需要验证token的请求
 const needTokenApi=[
     {method:"POST",path:"/api/student"},
-    {method:'PUT',path:"/api/student/:id"}
+    {method:'PUT',path:"/api/student/:id"},
+    {method:'GET',path:"/api/admin/whoami"}
 ]
 //用于解析验证token
 module.exports=(req,res,next)=>{
@@ -18,25 +19,12 @@ module.exports=(req,res,next)=>{
         next();
         return;
     }
-    // let token=req.cookies.token;
-    // if(!token){
-    //     token=req.headers.authorization;
-    // }
-    // if(!token){
-    //     handleNonToken(req,res,next);
-    //     console.log("认证未通过");
-    //     return;
-    // }
-    // //验证token
-    // const userId=cryptor.decrypt(token);//对token进行解密并赋值到req
-    // req.userId=userId;
-
-    console.log(req.session)
-    if(req.session.loginUser){
-        //如果req.session.loginUser有值则说明已经登录过了
+    const result=jwt.verify(req)
+    if(result){
+        //认证通过
+        req.userId=result.id;
         next()
-    }
-    else{
+    }else{
         handleNonToken(req,res,next)
     }
 }
