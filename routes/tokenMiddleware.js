@@ -18,20 +18,27 @@ module.exports=(req,res,next)=>{
         next();
         return;
     }
-    let token=req.cookies.token;
-    if(!token){
-        token=req.headers.authorization;
+    // let token=req.cookies.token;
+    // if(!token){
+    //     token=req.headers.authorization;
+    // }
+    // if(!token){
+    //     handleNonToken(req,res,next);
+    //     console.log("认证未通过");
+    //     return;
+    // }
+    // //验证token
+    // const userId=cryptor.decrypt(token);//对token进行解密并赋值到req
+    // req.userId=userId;
+
+    console.log(req.session)
+    if(req.session.loginUser){
+        //如果req.session.loginUser有值则说明已经登录过了
+        next()
     }
-    if(!token){
-        handleNonToken(req,res,next);
-        console.log("认证未通过");
-        return;
+    else{
+        handleNonToken(req,res,next)
     }
-    //验证token
-    const userId=cryptor.decrypt(token);//对token进行解密并赋值到req
-    req.userId=userId;
-    console.log("认证通过");
-    next()
 }
 function handleNonToken(req,res,next){
     res.status(403).send(getErr("you do not have any token to access the api",403))
