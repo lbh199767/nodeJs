@@ -21,6 +21,7 @@ router.post(
 router.get(
   "/whoami",
   asyncHandler(async (req, res) => {
+    // return await adminServ.getAdminById(req.userId)
     const result= await adminServ.getAdminById(req.userId)
     delete result.loginPwd;
     return result

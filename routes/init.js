@@ -19,6 +19,9 @@ const express = require('express');
 const app = express();
 const cors=require("cors");
 
+const history=require("connect-history-api-fallback");
+app.use(history());
+
 const path = require('path');
 const staticRoot = path.resolve(__dirname, "../public");
 /**
@@ -36,19 +39,20 @@ app.use(express.static(staticRoot));
 // })
 
 // cors处理跨域
-// app.use(require("./corsMiddleware"))
-const whiteList=["null","http://localhost:5008"]
+//// app.use(require("./corsMiddleware"))
+// const whiteList=["null","http://localhost:5008"]
 app.use(cors({
     origin(origin,callback){
         if(!origin){//针对如postman请求工具没有origin
             callback(null,"*");
             return 
         }
-        if(whiteList.includes(origin)){
-            callback(null,origin);
-        }else{
-            callback(new Error("not allowed"));
-        }
+        // if(whiteList.includes(origin)){
+        //     callback(null,origin);
+        // }else{
+        //     callback(new Error("not allowed"));
+        // }
+        callback(null,origin);
     },
     credentials:true,
 }));

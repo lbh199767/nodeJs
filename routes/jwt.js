@@ -17,23 +17,17 @@ exports.publish = function (res, maxAge = 3600 * 24, info = {}) {
 
 //获取jwt
 exports.verify = function (req) {
-    let token;
-    //尝试从cookie中获取
-    token = req.cookies[cookieKey];
+    let token = req.headers.authorization;//authorization需要手动添加到请求头，cookie会自动添加到消息头
     if (!token) {
-        token = req.headers.authorization;
-        if (!token) {
-            return null
-        }
-        //验证token是不是autorization:bearer token这种形式
-        token = token.split(" ");
-        token = token.length === 1 ? token[0] : token[1]
+        return null;
     }
-
+    //验证token是不是autorization:bearer token这种形式
+    token = token.split(" ");
+    token = token.length === 1 ? token[0] : token[1]
     try {
         const result = jwt.verify(token, secrect);
         return result;
-    } catch {
-        return null
+    } catch (err) {
+        return null;
     }
 }

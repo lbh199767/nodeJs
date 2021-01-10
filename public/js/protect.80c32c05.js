@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["protect"],{"0eb4":function(t,e,n){"use strict";n.r(e);var c=function(){var t=this,e=t.$createElement;t._self._c;return t._m(0)},r=[function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"about"},[n("h1",[t._v("这是一个受保护的页面，需登录才能访问")])])}],s=n("2877"),a={},l=Object(s["a"])(a,c,r,!1,null,null,null);e["default"]=l.exports}}]);
+//# sourceMappingURL=protect.80c32c05.js.map
